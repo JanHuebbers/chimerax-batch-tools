@@ -30,9 +30,26 @@ A collection of ChimeraX .cxs scripts together with Python and PowerShell utilit
 ### Create a template from CHARMM-GUI output
 CHARMM-GUI-derived membrane protein builds can be used to generate template structures that help maintain a consistent orientation across the same protein, its isoforms, or structurally related models when using ChimeraX commands such as `align` or `matchmaker`.
 
-To create such a template, open the corresponding `.gro` file in ChimeraX, then save it as a session file in the `Input` folder. Because opening `.gro` files may take some time, it is recommended to wait until the structure has fully loaded before saving the session. Before running the template script, set the `Input` folder as the working directory either through **File → Set Working Folder** or with the ChimeraX `cd` command.
+To create such a template, copy the corresponding `.pdb` file to the `./templates` folder, then change to that directory:
+```bash
+cd .\templates\
+```
+Run:
+```bash
+python curate_template_pdb.py HvMlodIDR_trimer_1710_00_step5.pdb HvMlodIDR_trimer_1710_00_step5_template.pdb
+```
+This removes water and ions from the structure and assigns proper chain IDs to the protein subunits.
 
-Template scripts such as `template_create_for_charmm_gui_membrane_protein_builds.cxc` usually require manual adjustment before execution, for example to match the number of subunits or chain IDs in the input structure and to define the desired output file names.
+### Set up AF3-derived structures with or without a template file
+To set up AF3-derived structures for analysis and visualization in ChimeraX, save a `.cxs` file containing all AF3 models from a single run (for example, five models) in the `./input` folder.
+
+In `setup_w_template.cxc`, specify the desired template structure and adjust the template structure model ID as needed. The default template model ID is `6`, assuming that the session contains five AF3 models. The script then superposes the AF3 models onto the template structure either with the `matchmaker` command or by using `align` to fit selected residues in the AF3 models to the corresponding residues in the template. The latter requires manual adjustment of the selected residues, but it can provide a more precise alignment when all subunits should be considered rather than only one chain.
+
+Run from the `Setup` directory:
+```bash
+cd .\Setup\
+python .\run_cxc_on_cxs_1.3.py ..\Input\0084_02*.cxs ..\cxc_scripts\Setup_EXO70_wCHARMM.cxc
+```
 
 ## Notes
 
