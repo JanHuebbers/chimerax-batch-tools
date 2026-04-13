@@ -207,8 +207,9 @@ marimo/_lsp/
 __marimo__/
 
 # Project outputs
-# coulombic/
-# input/
-# templates/
-# mlp/
-# setup/
+coulombic/
+input/
+templates/
+mlp/
+setup/
+# surface/

@@ -7,11 +7,28 @@ A collection of ChimeraX .cxs scripts together with Python and PowerShell utilit
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Create a template from CHARMM-GUI output](#create-a-template-from-charmm-gui-output)
+  - [Set up AF3-derived structures with or without a template file](#set-up-af3-derived-structures-with-or-without-a-template-file)
+  - [Show the surface of protein complexes](#show-the-surface-of-protein-complexes)
+  - [Show the electrostatic potential of protein complexes](#show-the-electrostatic-potential-of-protein-complexes)
+  - [Show molecular lipophilicity potential of protein complexes](#show-molecular-lipophilicity-potential-of-protein-complexes)
 - [Notes](#notes)
 - [Status](#status)
 ## Overview
+`chimerax-batch-tools` is a repository for automating repetitive ChimeraX visualization and analysis workflows on protein structures retrieved from AF3 predicitons. It combines ChimeraX command scripts with Python and PowerShell utilities to support template generation from CHARMM-GUI builds, setup and alignment of AF3-derived structures, and standardized downstream rendering.
+
+The repository is designed for batch-style processing, where the same ChimeraX workflow is applied to multiple `.cxs` session files or structure-specific script variants. Its main goal is to make figure generation and structural comparison in ChimeraX more reproducible, faster, and easier to reuse across related projects.
 
 ## Features
+- Batch execution of ChimeraX `.cxc` scripts on multiple `.cxs` session files (pending)
+- Python and PowerShell helper scripts for automating recurring ChimeraX workflows
+- Template generation from CHARMM-GUI-derived membrane protein builds
+- Setup workflows for AF3-derived structures with or without a reference template
+- Standardized visualization presets for ChimeraX sessions
+    - Surface visualization workflows for prepared protein complexes
+    - Electrostatic surface potential mapping using `coulombic`
+    - Molecular lipophilicity potential mapping using `mlp`
+- Reusable script structure for extending the repository with additional ChimeraX analysis workflows
 
 ## Repository layout
 C:.
@@ -55,6 +72,18 @@ cd .\setup\
 python .\run_cxc_on_cxs_1.3.py ..\input\0084_02*.cxs ..\cxc_scripts\setup_w_template.cxc
 ```
 Run `setup_wo_template.cxc` if you do not want to use a template structure.
+
+### Show the surface of protein complexes
+The `surface.cxc` script prepares ChimeraX models for visualization of the molecular surface. It is intended to be run after a setup script.
+
+The script hides all models except model `#1`, displays the surface of that model, sets the surface transparency, and resets the view for inspection.
+
+Finally, the script clears the selection.
+
+Run from the `surface` directory:
+```bash
+python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\surface.cxc
+```
 
 ### Show the electrostatic potential of protein complexes
 The `coulombic.cxc` script prepares ChimeraX models for visualization of the electrostatic surface potential. It is intended to be run after a setup script.
