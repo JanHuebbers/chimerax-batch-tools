@@ -1,0 +1,72 @@
+# Load template
+#################################################################################################################
+#################################################################################################################
+
+# Activate clix
+ui tool hide "command line interface"
+ui tool show clix
+
+#################################################################################################################
+#################################################################################################################
+
+# Perpare environment
+## Background color
+set bgColor white
+## Silhouettes and lighting
+graphics silhouettes true width 1.2 depthJump 0.01
+light soft multishadow 128 intensity 0.0 color #FFFACD fillIntensity -0.0 ambientIntensity 1.5 depthCue false shadows  true
+## Style
+preset cartoons/nucleotides cylinders/stubs
+## Camera and view
+camera ortho
+zoom pixel_size 0.25
+
+#################################################################################################################
+#################################################################################################################
+
+# Set center of rotation to template center
+cofr #1
+
+#################################################################################################################
+#################################################################################################################
+
+# Color ribbon
+## Color A gradient
+color byattribute number #1-7/A palette "#4787C2:#8EBAE5"
+## Color B gradient
+color byattribute number #1-5/B palette "#F9BE47:#FDD48F"
+## Color C gradient
+color byattribute number #1-5/C palette "#B74D5E:#E5C5C0"
+## Color D gradient
+color byattribute number #1-5/D palette "#424344:#858788"
+## Color E gradient
+color byattribute number #1-5/E palette "#424344:#858788"
+## Color F gradient
+color byattribute number #1-5/F palette "#424344:#858788"
+## Color G gradient
+color byattribute number #1-5/G palette "#424344:#858788"
+## Color H gradient
+color byattribute number #1-5/H palette "#424344:#858788"
+## Color I gradient
+color byattribute number #1-5/I palette "#424344:#858788"
+## Color J gradient
+color byattribute number #1-5/J palette "#424344:#858788"
+## Set transparency
+transparency #1-5 0 target csa
+
+#################################################################################################################
+#################################################################################################################
+
+# Clear selection
+select subtract all
+
+#################################################################################################################
+#################################################################################################################
+
+# Adjust perspective
+view orient
+
+#################################################################################################################
+#################################################################################################################
+
+# Save model as .cxs
