@@ -1,0 +1,36 @@
+# Apply to a setup .cxs
+#################################################################################################################
+#################################################################################################################
+
+# Activate clix
+ui tool hide "command line interface"
+ui tool show clix
+
+#################################################################################################################
+#################################################################################################################
+# Open endpoint structure
+open ../Input/0097_08_1705_02.pdb
+## Style
+preset cartoons/nucleotides cylinders/stubs
+
+# Color endpoint structure
+## Color A gradient
+color byattribute number #7/A palette "#4787C2:#8EBAE5"
+## Color B gradient
+color byattribute number #7/B palette "#F9BE47:#FDD48F"
+## Color C gradient
+color byattribute number #7/C palette "#B74D5E:#E5C5C0"
+
+# Align endpoint model to starting model 
+align #1/A-C:51,75@Ca to #7/A-C:51,75@Ca
+
+## Morph
+morph #1,7 frames 40
+rename #8 Morph_01_to_06
+hide all models
+show #8 models
+show #8 cartoons
+~sel
+
+# Show surface
+surface #8

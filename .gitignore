@@ -208,8 +208,9 @@ __marimo__/
 
 # Project outputs
 coulombic/
-input/
-templates/
+# input/
 mlp/
+# morph/
 setup/
-# surface/
+surface/
+templates/

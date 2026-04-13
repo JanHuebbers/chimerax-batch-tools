@@ -12,6 +12,7 @@ A collection of ChimeraX .cxs scripts together with Python and PowerShell utilit
   - [Show the surface of protein complexes](#show-the-surface-of-protein-complexes)
   - [Show the electrostatic potential of protein complexes](#show-the-electrostatic-potential-of-protein-complexes)
   - [Show molecular lipophilicity potential of protein complexes](#show-molecular-lipophilicity-potential-of-protein-complexes)
+  - [Create a morph between setup and endpoint structures](#create-a-morph-between-setup-and-endpoint-structures)
 - [Notes](#notes)
 - [Status](#status)
 ## Overview
@@ -71,6 +72,7 @@ Run from the `setup` directory:
 cd .\setup\
 python .\run_cxc_on_cxs_1.3.py ..\input\0084_02*.cxs ..\cxc_scripts\setup_w_template.cxc
 ```
+
 Run `setup_wo_template.cxc` if you do not want to use a template structure.
 
 ### Show the surface of protein complexes
@@ -107,6 +109,16 @@ Run from the `mlp` directory:
 cd .\mlp\
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\mlp_HvMlo.cxc
 ```
+### Create a morph between setup and endpoint structures
+The `morph.cxc` script is applied to a prepared setup `.cxs` file and generates a structural morph between the starting model and a defined endpoint structure.
+
+The script opens a desired endpoint `<structure>.pdb` (defined in the script), applies styling, and colors chains with separate residue-number gradients. It then aligns the endpoint model to the starting model using selected `Cα` atoms from specified residues. After alignment, the script creates a morph trajectory between the starting and endpoint structures.
+
+Run from the `morph` directory:
+```bash
+python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\morph.cxc
+```
+
 ## Notes
 
 ## Status

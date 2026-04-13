@@ -1,0 +1,84 @@
+# Apply to a morph.cxs
+#################################################################################################################
+#################################################################################################################
+
+# Activate clix
+ui tool hide "command line interface"
+ui tool show clix
+
+#################################################################################################################
+#################################################################################################################
+
+#################################################################################################################
+#################################################################################################################
+
+# View
+view orient
+windowsize 800 800
+zoom pixel_size 0.20
+turn z 60
+view name VP0
+turn x 90
+view name VP1
+turn x 90
+view name VP2
+
+#################################################################################################################
+#################################################################################################################
+
+view VP0
+movie record format png supersample 5 transparentBackground true
+# Play the morph and wait until all frames are shown
+coordset #8 1,40
+wait 40
+#encode
+movie encode ./0097_01_00_to_08_02_ribbon_bottom.png
+
+view VP1
+movie record format png supersample 5 transparentBackground true
+# Play the morph and wait until all frames are shown
+coordset #12 1,40
+wait 40
+#encode
+movie encode ./0097_01_00_to_08_02_ribbon_side.png
+
+view VP2
+movie record format png supersample 5 transparentBackground true
+# Play the morph and wait until all frames are shown
+coordset #12 1,40
+wait 40
+#encode
+movie encode ./0097_01_00_to_08_02_ribbon_top.png
+
+# Collect 01_00 to 08_03 movies
+hide #!12 models
+show #!13 models
+
+view VP0
+movie record format png supersample 5 transparentBackground true
+# Play the morph and wait until all frames are shown
+coordset #13 1,40
+wait 40
+#encode
+movie encode ./0097_01_00_to_08_03_ribbon_bottom.png
+
+view VP1
+movie record format png supersample 5 transparentBackground true
+# Play the morph and wait until all frames are shown
+coordset #13 1,40
+wait 40
+#encode
+movie encode ./0097_01_00_to_08_03_ribbon_side.png
+
+view VP2
+movie record format png supersample 5 transparentBackground true
+# Play the morph and wait until all frames are shown
+coordset #13 1,40
+wait 40
+#encode
+movie encode ./0097_01_00_to_08_03_ribbon_top.png
+
+#################################################################################################################
+#################################################################################################################
+# Deselect
+~sel
