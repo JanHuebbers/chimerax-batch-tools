@@ -13,6 +13,7 @@ A collection of ChimeraX .cxs scripts together with Python and PowerShell utilit
   - [Show the electrostatic potential of protein complexes](#show-the-electrostatic-potential-of-protein-complexes)
   - [Show molecular lipophilicity potential of protein complexes](#show-molecular-lipophilicity-potential-of-protein-complexes)
   - [Create a morph between setup and endpoint structures](#create-a-morph-between-setup-and-endpoint-structures)
+  - [Create movies from ChimeraX sessions](#create-movies-from-chimerax-sessions)
 - [Notes](#notes)
 - [Status](#status)
 ## Overview
@@ -116,6 +117,32 @@ Run from the `morph` directory:
 ```bash
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\morph.cxc
 ```
+
+### Create movies from ChimeraX sessions
+Movie scripts can be used to generate animated visualizations from prepared ChimeraX session files, for example after surface rendering or morph generation. Here, a typical movie workflow defines one or more saved views, records a sequence of camera movements, optionally plays a morph trajectory, and then encodes the recorded frames as an animated `.png`.
+
+`movie_<description>.cxc` scripts are applied to an existing `.cxs` session and usually carry out the following steps:
+- reset and save relevant views
+- define the window size and zoom level
+- start movie recording
+- rotate or move the camera between predefined views
+- optionally play a morph trajectory
+- encode the recorded frames as an animated `.png`
+
+These animated `.png` files can then be converted to `.gif` format with `apng_to_gif.py` for easier sharing or embedding.
+
+Example workflow from the `movie` directory:
+```bash
+cd .\movie\
+python .\run_cxc_on_cxs_1.3.py ..\morph\0097_01_morph_to_0097_08_02_surface.cxs ..\cxc_scripts\movie_morph_bottom_and_spin.cxc
+```
+
+Convert the resulting animated `.png` to `.gif`:
+```bash
+python .\apng_to_gif.py ".\0097_01_00_to_08_02_morph_bottom_spin.png" -o ".\0097_01_00_to_08_02_morph_bottom_spin.gif"
+```
+
+The exact input session, camera path, morph model ID, and output file name can be adjusted depending on the structure and movie to be generated.
 
 ## Notes
 
