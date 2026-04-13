@@ -45,16 +45,29 @@ python curate_template_pdb.py HvMlodIDR_trimer_1710_00_step5.pdb HvMlodIDR_trime
 This removes water and ions from the structure and assigns proper chain IDs to the protein subunits.
 
 ### Set up AF3-derived structures with or without a template file
-To set up AF3-derived structures for analysis and visualization in ChimeraX, save a `.cxs` file containing all AF3 models from a single run (for example, five models) in the `./input` folder. The setup script can superpose AF3 structures onto a template structure and color the individual chains inferred from the AF3 predictions.
+To set up AF3-derived structures for analysis and visualization in ChimeraX, save a `.cxs` file containing all AF3 models from a single run (for example, five models) in the `./input` folder. The setup first applies a standardized display setup, including a white background, silhouettes, soft lighting, cartoon rendering, and an orthographic camera view. It then superposes AF3 structures onto a template structure and colors the individual chains inferred from AF3 prediction.
 
 In `setup_w_template.cxc`, specify the desired template structure and adjust the template structure model ID as needed. The default template model ID is `6`, assuming that the session contains five AF3 models. The script then superposes the AF3 models onto the template structure either with the `matchmaker` command or by using `align` to fit selected residues in the AF3 models to the corresponding residues in the template. The latter requires manual adjustment of the selected residues, but it can provide a more precise alignment when all subunits should be considered rather than only a single chain.
 
-Run from the `Setup` directory:
+Run from the `setup` directory:
 ```bash
-cd .\Setup\
+cd .\setup\
 python .\run_cxc_on_cxs_1.3.py ..\input\0084_02*.cxs ..\cxc_scripts\setup_w_template.cxc
 ```
 Run `setup_wo_template.cxc` if you do not want to use a template structure.
+
+### Show molecular lipophilicity potential for HvMlo
+The `mlp_<structure>.cxc` script prepares AF3-derived models in ChimeraX for visualization of the molecular lipophilicity potential (MLP). It colors chain `A` by structural region, using distinct colors for the transmembrane, extracellular, and intracellular domains, while chains `B` and `C` are colored white.
+
+The script then calculates and displays the molecular lipophilicity potential on the protein surface using the `mlp` command. The surface is shown with a custom color gradient ranging from teal to white to orange, allowing lipophilic and less lipophilic regions to be distinguished visually.
+
+Finally, the script hides atoms, cartoons, and surfaces for models `#2-5`, leaving only the first model visible for inspection.
+
+Run from the `mlp` directory:
+```bash
+cd .\mlp\
+python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\mlp_HvMlo.cxc
+```
 
 ## Notes
 
