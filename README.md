@@ -56,7 +56,19 @@ python .\run_cxc_on_cxs_1.3.py ..\input\0084_02*.cxs ..\cxc_scripts\setup_w_temp
 ```
 Run `setup_wo_template.cxc` if you do not want to use a template structure.
 
-### Show molecular lipophilicity potential for HvMlo
+### Show the electrostatic potential of protein complexes
+The `coulombic.cxc` script prepares ChimeraX models for visualization of the electrostatic surface potential. It is intended to be run after a setup script.
+
+The script hides all models except model `#1`, displays its molecular surface, and sets the surface transparency. All protein subunits are colored white before the electrostatic potential is mapped onto the surface using the `coulombic` command with a custom red-white-teal palette. In addition, chain `A` is shown with partial surface transparency, and its cartoon representation is colored by residue number.
+
+Finally, the script resets the view for inspection and clears the selection.
+
+Run from the `coulombic` directory:
+```bash
+python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\coulombic.cxc
+```
+
+### Show molecular lipophilicity potential of protein complexes
 The `mlp_<structure>.cxc` script prepares AF3-derived models in ChimeraX for visualization of the molecular lipophilicity potential (MLP). It colors chain `A` by structural region, using distinct colors for the transmembrane, extracellular, and intracellular domains, while chains `B` and `C` are colored white.
 
 The script then calculates and displays the molecular lipophilicity potential on the protein surface using the `mlp` command. The surface is shown with a custom color gradient ranging from teal to white to orange, allowing lipophilic and less lipophilic regions to be distinguished visually.
