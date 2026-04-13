@@ -69,7 +69,6 @@ In `setup_w_template.cxc`, specify the desired template structure and adjust the
 
 Run from the `setup` directory:
 ```bash
-cd .\setup\
 python .\run_cxc_on_cxs_1.3.py ..\input\0084_02*.cxs ..\cxc_scripts\setup_w_template.cxc
 ```
 
@@ -106,7 +105,6 @@ Finally, the script hides atoms, cartoons, and surfaces for models `#2-5`, leavi
 
 Run from the `mlp` directory:
 ```bash
-cd .\mlp\
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\mlp_HvMlo.cxc
 ```
 ### Create a morph between setup and endpoint structures
