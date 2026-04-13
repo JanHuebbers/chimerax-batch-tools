@@ -84,7 +84,6 @@ Run from the `surface` directory:
 ```bash
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\surface.cxc
 ```
-
 ### Show the electrostatic potential of protein complexes
 The `coulombic.cxc` script prepares ChimeraX models for visualization of the electrostatic surface potential. It is intended to be run after a setup script.
 
@@ -96,7 +95,6 @@ Run from the `coulombic` directory:
 ```bash
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\coulombic.cxc
 ```
-
 ### Show molecular lipophilicity potential of protein complexes
 The `mlp_<structure>.cxc` script prepares AF3-derived models in ChimeraX for visualization of the molecular lipophilicity potential (MLP). It colors chain `A` by structural region, using distinct colors for the transmembrane, extracellular, and intracellular domains, while chains `B` and `C` are colored white.
 
@@ -109,7 +107,6 @@ Run from the `mlp` directory:
 cd .\mlp\
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\mlp_HvMlo.cxc
 ```
-
 ## Notes
 
 ## Status
