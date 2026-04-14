@@ -1,5 +1,5 @@
 # chimerax-batch-tools
-A collection of ChimeraX `.cxc` scripts together with Python and PowerShell utilities for automating batch visualization and analysis workflows in ChimeraX.
+A collection of ChimeraX `.cxc` scripts and Python and PowerShell utilities for automating batch visualization and analysis workflows in ChimeraX.
 ## Table of contents
 - [Overview](#overview)
 - [Features](#features)
