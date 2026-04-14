@@ -211,9 +211,7 @@ coulombic/
 input/
 mlp/
 morph/
-movie/*.cxs
-movie/*.png
-movie/*.gif
+movie/
 setup/
 surface/
 templates/

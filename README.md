@@ -13,6 +13,7 @@ A collection of ChimeraX .cxs scripts together with Python and PowerShell utilit
   - [Show the electrostatic potential of protein complexes](#show-the-electrostatic-potential-of-protein-complexes)
   - [Show molecular lipophilicity potential of protein complexes](#show-molecular-lipophilicity-potential-of-protein-complexes)
   - [Create a morph between setup and endpoint structures](#create-a-morph-between-setup-and-endpoint-structures)
+  - [Take pictures from predefined views](take-pictures-from-predefined-views)
   - [Create movies from ChimeraX sessions](#create-movies-from-chimerax-sessions)
 - [Notes](#notes)
 - [Status](#status)
@@ -34,9 +35,15 @@ The repository is designed for batch-style processing, where the same ChimeraX w
 
 ## Repository layout
 C:.
+├───coulombic
 ├───cxc_scripts
 ├───input
+├───mlp
+├───morph
+├───movie
 ├───setup
+├───shots
+├───surface
 └───templates
 ## Requirements
 -[CliX](https://github.com/hanjinliu/Chimerax-clix)
@@ -117,7 +124,17 @@ Run from the `morph` directory:
 ```bash
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\morph.cxc
 ```
+### Take pictures from predefined views
+The `shots.cxc` typically apply a standardized visualization setup, define one or more fixed viewpoints, and save high-resolution `.png` images with transparent backgrounds for figures and presentations.
 
+Because the scripts save images directly from the current session, the exact output depends on the structure, coloring, and display settings already present in the input `.cxs` file.
+
+Example workflow:
+```bash
+cd .\shots\
+python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\shots.cxc
+```
+The saved view names, camera orientations, output file names, image size, and rendering options can be adjusted as needed for a given structure or figure layout.
 ### Create movies from ChimeraX sessions
 Movie scripts can be used to generate animated visualizations from prepared ChimeraX session files, for example after surface rendering or morph generation. Here, a typical movie workflow defines one or more saved views, records a sequence of camera movements, optionally plays a morph trajectory, and then encodes the recorded frames as an animated `.png`.
 
