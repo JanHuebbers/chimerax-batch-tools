@@ -1,5 +1,5 @@
 # chimerax-batch-tools
-A collection of ChimeraX .cxs scripts together with Python and PowerShell utilities for automating batch visualization and analysis workflows in ChimeraX.
+A collection of ChimeraX `.cxc` scripts together with Python and PowerShell utilities for automating batch visualization and analysis workflows in ChimeraX.
 ## Table of contents
 - [Overview](#overview)
 - [Features](#features)
@@ -13,17 +13,17 @@ A collection of ChimeraX .cxs scripts together with Python and PowerShell utilit
   - [Show the electrostatic potential of protein complexes](#show-the-electrostatic-potential-of-protein-complexes)
   - [Show molecular lipophilicity potential of protein complexes](#show-molecular-lipophilicity-potential-of-protein-complexes)
   - [Create a morph between setup and endpoint structures](#create-a-morph-between-setup-and-endpoint-structures)
-  - [Take pictures from predefined views](take-pictures-from-predefined-views)
+  - [Take pictures from predefined views](#take-pictures-from-predefined-views)
   - [Create movies from ChimeraX sessions](#create-movies-from-chimerax-sessions)
+  - [Batch-run ChimeraX workflows from PowerShell](#batch-run-chimerax-workflows-from-powershell)
 - [Notes](#notes)
 - [Status](#status)
 ## Overview
-`chimerax-batch-tools` is a repository for automating repetitive ChimeraX visualization and analysis workflows on protein structures retrieved from AF3 predicitons. It combines ChimeraX command scripts with Python and PowerShell utilities to support template generation from CHARMM-GUI builds, setup and alignment of AF3-derived structures, and standardized downstream rendering.
+`chimerax-batch-tools` is a repository for automating repetitive ChimeraX visualization and analysis workflows for protein structures derived from AF3 predictions. It combines ChimeraX command scripts with Python and PowerShell utilities to support template generation from CHARMM-GUI membrane protein builds, setup and alignment of AF3-derived structures, and standardized downstream visualization and rendering.
 
 The repository is designed for batch-style processing, where the same ChimeraX workflow is applied to multiple `.cxs` session files or structure-specific script variants. Its main goal is to make figure generation and structural comparison in ChimeraX more reproducible, faster, and easier to reuse across related projects.
 
 ## Features
-- Batch execution of ChimeraX `.cxc` scripts on multiple `.cxs` session files (pending)
 - Python and PowerShell helper scripts for automating recurring ChimeraX workflows
 - Template generation from CHARMM-GUI-derived membrane protein builds
 - Setup workflows for AF3-derived structures with or without a reference template
@@ -32,8 +32,9 @@ The repository is designed for batch-style processing, where the same ChimeraX w
     - Electrostatic surface potential mapping using `coulombic`
     - Molecular lipophilicity potential mapping using `mlp`
 - Reusable script structure for extending the repository with additional ChimeraX analysis workflows
-
+- Batch execution of ChimeraX `.cxc` scripts on multiple `.cxs` session files
 ## Repository layout
+```text
 C:.
 ├───coulombic
 ├───cxc_scripts
@@ -45,18 +46,21 @@ C:.
 ├───shots
 ├───surface
 └───templates
+```
 ## Requirements
--[CliX](https://github.com/hanjinliu/Chimerax-clix)
-
-
-
+- ChimeraX 1.10.1 or compatible version
+- Python 3.12
+- PowerShell for the batch wrapper scripts on Windows
+- [CliX](https://github.com/hanjinliu/Chimerax-clix)
+- A valid `ChimeraX-console.exe` path configured in `run_cxc_on_cxs_1.3.py` or passed via `--chimerax`
+## Installation
+Clone the repository and ensure that Python, ChimeraX, and CliX are available. Update the ChimeraX executable path in `run_cxc_on_cxs_1.3.py` if your local installation differs from the default path.
 ## Usage
 `.cxc` scripts can be run in several ways:
 - Open the file directly in an active ChimeraX session
 - Drag and drop the `.cxc` file into an open ChimeraX session
 - Copy and paste the script contents into the ChimeraX console and press `Enter`
-- Run `run_cxc_on_cxs_1.3.py` from a terminal; the runner must be located in the same directory as the target `.cxs` files, and ChimeraX must be available on `PATH`
-
+- Run `run_cxc_on_cxs_1.3.py` from a terminal; the current working directory determines where output files are written, and the ChimeraX-console path must be correct (default: "C:\Program Files\ChimeraX 1.10.1\bin\ChimeraX-console.exe")
 ### Create a template from CHARMM-GUI output
 CHARMM-GUI-derived membrane protein builds can be used to generate template structures that help maintain a consistent orientation across the same protein, its isoforms, or structurally related models when using ChimeraX commands such as `align` or `matchmaker`.
 
@@ -69,9 +73,8 @@ Run:
 python curate_template_pdb.py HvMlodIDR_trimer_1710_00_step5.pdb HvMlodIDR_trimer_1710_00_step5_template.pdb
 ```
 This removes water and ions from the structure and assigns proper chain IDs to the protein subunits.
-
 ### Set up AF3-derived structures with or without a template file
-To set up AF3-derived structures for analysis and visualization in ChimeraX, save a `.cxs` file containing all AF3 models from a single run (for example, five models) in the `./input` folder. The setup first applies a standardized display setup, including a white background, silhouettes, soft lighting, cartoon rendering, and an orthographic camera view. It then superposes AF3 structures onto a template structure and colors the individual chains inferred from AF3 prediction.
+To set up AF3-derived structures for analysis and visualization in ChimeraX, save a `.cxs` file containing all AF3 models from a single run (for example, five models) in the `./input` folder. The setup first applies a standardized display setup, including a white background, silhouettes, soft lighting, cartoon rendering, and an orthographic camera view. It then superposes AF3 structures onto a template structure and colors the individual chains inferred from the AF3 predictions.
 
 In `setup_w_template.cxc`, specify the desired template structure and adjust the template structure model ID as needed. The default template model ID is `6`, assuming that the session contains five AF3 models. The script then superposes the AF3 models onto the template structure either with the `matchmaker` command or by using `align` to fit selected residues in the AF3 models to the corresponding residues in the template. The latter requires manual adjustment of the selected residues, but it can provide a more precise alignment when all subunits should be considered rather than only a single chain.
 
@@ -125,7 +128,7 @@ Run from the `morph` directory:
 python .\run_cxc_on_cxs_1.3.py ..\setup\0097_01*.cxs ..\cxc_scripts\morph.cxc
 ```
 ### Take pictures from predefined views
-The `shots.cxc` typically apply a standardized visualization setup, define one or more fixed viewpoints, and save high-resolution `.png` images with transparent backgrounds for figures and presentations.
+The `shots.cxc` scripts typically apply a standardized visualization setup, define one or more fixed viewpoints, and save high-resolution `.png` images with transparent backgrounds for figures and presentations.
 
 Because the scripts save images directly from the current session, the exact output depends on the structure, coloring, and display settings already present in the input `.cxs` file.
 
@@ -158,10 +161,20 @@ Convert the resulting animated `.png` to `.gif`:
 ```bash
 python .\apng_to_gif.py ".\0097_01_00_to_08_02_morph_bottom_spin.png" -o ".\0097_01_00_to_08_02_morph_bottom_spin.gif"
 ```
-
 The exact input session, camera path, morph model ID, and output file name can be adjusted depending on the structure and movie to be generated.
-
+### Batch-run ChimeraX workflows from PowerShell
+The `run_coulombic_all.ps1` script is a PowerShell batch wrapper for `run_cxc_on_cxs_1.3.py`. It iterates over a predefined set of input `.cxs` files, applies a selected `.cxc` script to each one, and checks whether the expected output session file was created. If no output is found, the script retries the run up to a configurable number of times.
+Although the example script is configured for a Coulombic workflow, it can also be adapted for other ChimeraX `.cxc` scripts by changing the `$cxc` path, the directory from which it is run, and, if necessary, the expected output naming convention.
+Run the script from the `./coulombic` directory:
+```bash
+.\run_coulombic_all.ps1
+```
 ## Notes
-
+- Many workflows rely on relative paths. Run commands from the directory specified in each example.
+- Output `.cxs`, `.png`, and `.gif` files are typically written to the current working directory.
+- The default ChimeraX executable path is hard-coded in `run_cxc_on_cxs_1.3.py` and may need to be updated for a different local installation.
+- Some `.cxc` scripts require manual adjustment of model IDs, residue selections, chain IDs, or file names before execution.
+- Template generation from CHARMM-GUI output assumes protein subunits can be identified and assigned consistent chain IDs.
+- Large generated media and session files are usually better excluded from Git tracking.
 ## Status
-This repository is under construction.
+This repository is functional and covers the core ChimeraX batch workflows currently used in the project. Additional scripts, refinements, and workflow-specific extensions may be added over time.

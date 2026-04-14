@@ -207,11 +207,12 @@ marimo/_lsp/
 __marimo__/
 
 # Project outputs
-coulombic/
+# coulombic/
 input/
 mlp/
 morph/
 movie/
 setup/
+shots/
 surface/
 templates/
